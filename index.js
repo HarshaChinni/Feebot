@@ -13,6 +13,7 @@ mongoose.connect(
 const app = express();
 
 require("./models/User");
+require("./models/Survey");
 require("./services/passport");
 
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes")(app);
 
 // app.get("/", (req, res) => {
 //   res.send({ hi: "there" });
