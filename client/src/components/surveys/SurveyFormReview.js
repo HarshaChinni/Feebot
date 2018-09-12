@@ -1,10 +1,14 @@
 import React from "react";
 
+import { withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import formFields from "./formFields";
 import _ from "lodash";
 
-const SurveyFormReview = ({ onCancel, formValues }) => {
+import * as actions from "../../actions";
+
+const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
   console.log(formValues);
   const displayFormFields = _.map(formFields, ({ label, name }) => {
     return (
@@ -22,6 +26,13 @@ const SurveyFormReview = ({ onCancel, formValues }) => {
       <button className="btn-flat darken-3 yellow" onClick={onCancel}>
         Back
       </button>
+      <button
+        className="btn-flat green right"
+        onClick={() => submitSurvey(formValues, history)}
+      >
+        Submit Survey
+        <i className="material-icons right">email</i>
+      </button>
     </div>
   );
 };
@@ -33,4 +44,7 @@ function mapStatesToProps(state) {
   };
 }
 
-export default connect(mapStatesToProps)(SurveyFormReview);
+export default connect(
+  mapStatesToProps,
+  actions
+)(withRouter(SurveyFormReview));
